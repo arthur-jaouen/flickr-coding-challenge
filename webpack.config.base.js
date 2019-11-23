@@ -27,13 +27,6 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
-                test: /\.scss$/,
-                use: [
-                    { loader: 'css-loader', options: { sourceMap: true } },
-                    { loader: 'sass-loader', options: { sourceMap: true } }
-                ]
-            },
-            {
                 test: /\.(png|jpe?g|gif|svg)$/,
                 loader: 'file-loader',
                 options: {

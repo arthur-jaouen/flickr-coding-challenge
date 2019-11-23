@@ -10,13 +10,5 @@ module.exports = merge.smartStrategy({ 'module.rules.use': 'prepend' })(baseConf
         contentBase: './',
         hot: true
     },
-    module: {
-        rules: [
-            {
-                test: /\.scss$/,
-                use: ['style-loader']
-            }
-        ]
-    },
     plugins: [new HotModuleReplacementPlugin()]
 });

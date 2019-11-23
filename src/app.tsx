@@ -1,17 +1,17 @@
 import React from 'react';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-import { Theme } from 'src/styles/theme';
+import { Theme } from 'src/theme/theme';
 
-import 'src/styles/default-theme';
+import 'src/theme/default-theme';
 
 export const Div = styled.div`
     color: ${props => props.theme.colors.main};
 `;
 
-export const App: React.FC = () => (
+export const App: React.FC = props => (
     <ThemeProvider theme={Theme}>
-        <Div />
+        <Div>Hello world</Div>
     </ThemeProvider>
 );
 
