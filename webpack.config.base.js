@@ -23,21 +23,8 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: [['@babel/preset-env', { targets: '> 0.25%, not dead' }], '@babel/preset-react'],
-                            plugins: ['@babel/transform-runtime']
-                        }
-                    },
-                    {
-                        loader: 'ts-loader',
-                        options: {
-                            happyPackMode: true
-                        }
-                    }
-                ]
+                exclude: /node_modules/,
+                loader: 'babel-loader'
             },
             {
                 test: /\.scss$/,
