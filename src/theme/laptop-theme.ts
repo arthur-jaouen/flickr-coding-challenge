@@ -1,11 +1,11 @@
 import { DefaultTheme } from 'styled-components';
 
-export const Theme: DefaultTheme = {
+export const LaptopTheme: DefaultTheme = {
     dimensions: {
-        gap: '16px',
-        halfGap: '8px',
-        smallGap: '8px',
-        halfSmallGap: '4px',
+        gap: '24px',
+        halfGap: '12px',
+        smallGap: '16px',
+        halfSmallGap: '8px',
         inputPadding: '12px',
         inputHeight: '40px',
         borderRadius: '3px',

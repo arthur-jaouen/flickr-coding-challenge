@@ -50,9 +50,6 @@ module.exports = {
             template: './public/index.html',
             title: 'Flickr Coding Challenge - Arthur JAOUEN'
         }),
-        new ForkTsCheckerPlugin({
-            checkSyntacticErrors: true
-        }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ]
 };
