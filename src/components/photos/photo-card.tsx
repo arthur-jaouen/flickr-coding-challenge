@@ -15,6 +15,10 @@ const Description = styled.p`
     line-height: 24px;
     font-size: ${props => props.theme.dimensions.fontSize};
     margin: 4px;
+
+    @media screen and (min-width: 1024px) {
+        margin: 4px 8px;
+    }
 `;
 
 const Infos = styled.div`
@@ -77,7 +81,7 @@ export const PhotoCard: React.FC<Photo> = photo => {
     return (
         <PhotoCardTemplate
             image={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`}
-            title={photo.title}
+            title={photo.title.length ? photo.title : '-'}
             owner={photoInfo ? photoInfo.owner.username : <TextPlaceholder length={50} />}
             date={
                 photoInfo ? (

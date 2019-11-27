@@ -11,7 +11,7 @@ export interface TextPlaceholderProps {
 const TextPlaceholderLine = styled.span<{ length: (() => number) | number }>`
     display: block;
     width: ${({ length }) => (typeof length === 'number' ? length : length())}%;
-    margin: ${props => props.theme.dimensions.halfSmallGap} 0;
+    margin: 4px 0;
     height: 16px;
     background: #c4c6c9;
 `;

@@ -17,13 +17,6 @@ const StyledCard = styled.div`
     }
 `;
 
-const Content = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin: calc(${props => props.theme.dimensions.halfSmallGap});
-`;
-
 const ImageContainer = styled.div`
     display: flex;
     align-items: center;
@@ -40,9 +33,25 @@ const ImageContainer = styled.div`
     }
 `;
 
+const StyledImageLoader = styled(ImageLoader)`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+`;
+
 const Image = styled.img`
-    min-width: 100%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+`;
+
+const Content = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: calc(${props => props.theme.dimensions.halfGap} - ${props => props.theme.dimensions.halfSmallGap});
 `;
 
 const Separator = styled.hr`
@@ -50,6 +59,11 @@ const Separator = styled.hr`
         ${props => props.theme.dimensions.halfSmallGap};
     border: 0;
     border-top: 1px solid #c4c6c9;
+
+    @media screen and (min-width: 1024px) {
+        margin: ${props => props.theme.dimensions.halfSmallGap};
+        margin-top: calc(${props => props.theme.dimensions.smallGap} + ${props => props.theme.dimensions.halfSmallGap});
+    }
 `;
 
 const Actions = styled.div`
@@ -69,11 +83,11 @@ export const Card: React.FC<CardProps> = ({ image, actions, children }) => (
     <StyledCard>
         <ImageContainer>
             {typeof image === 'string' ? (
-                <ImageLoader src={image}>
-                    <img />
+                <StyledImageLoader src={image}>
+                    <Image />
                     <></>
                     <LoaderIcon />
-                </ImageLoader>
+                </StyledImageLoader>
             ) : (
                 image
             )}
