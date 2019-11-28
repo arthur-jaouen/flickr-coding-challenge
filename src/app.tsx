@@ -9,7 +9,7 @@ import 'src/definitions/default-theme';
 import 'src/definitions/flickr-sdk';
 import 'src/definitions/react-load-image';
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
     @font-face {
         font-family: 'Source Sans Pro';
         font-style: normal;

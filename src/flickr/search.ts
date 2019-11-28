@@ -7,8 +7,9 @@ export enum REQUEST_STATE {
     Error
 }
 
-export interface RequestStatus {
-    requestState: REQUEST_STATE;
+export interface SearchResponse<T> {
+    results: T[];
+    state: REQUEST_STATE;
     error: string | null;
 }
 
@@ -21,54 +22,49 @@ export interface SearchParams {
 export type SearchRequest<T> = (
     params: SearchParams
 ) => {
-    response: Promise<T>;
+    response: Promise<T[]>;
     abort: () => void;
 };
 
-export function useSearchRequest<T>(
-    request: SearchRequest<T>,
-    params: SearchParams,
-    onSuccess: (result: T) => void
-): RequestStatus {
-    const [status, setStatus] = useState<RequestStatus>({
-        requestState: REQUEST_STATE.Idle,
+export function useSearchRequest<T>(request: SearchRequest<T>, params: SearchParams): SearchResponse<T> {
+    const [response, setResponse] = useState<SearchResponse<T>>({
+        results: [],
+        state: REQUEST_STATE.Idle,
         error: null
     });
 
     useEffect(() => {
-        setStatus({
-            requestState: REQUEST_STATE.Fetching,
+        setResponse({
+            results: [],
+            state: REQUEST_STATE.Fetching,
             error: null
         });
 
         const { response, abort } = request(params);
 
         response
-            .then(result => {
-                onSuccess(result);
-                setStatus({
-                    requestState: REQUEST_STATE.Success,
+            .then(results => {
+                setResponse({
+                    results,
+                    state: REQUEST_STATE.Success,
                     error: null
                 });
             })
             .catch(error => {
                 if (error.name !== 'AbortError') {
-                    if (error.status === 200) {
-                        setStatus({
-                            requestState: REQUEST_STATE.Error,
-                            error: error.message
-                        });
-                    } else {
-                        setStatus({
-                            requestState: REQUEST_STATE.Error,
-                            error: 'A network error occurred, please check your connection'
-                        });
-                    }
+                    setResponse({
+                        results: [],
+                        state: REQUEST_STATE.Error,
+                        error:
+                            error.status === 200
+                                ? error.message
+                                : 'A network error occurred, please check your connection'
+                    });
                 }
             });
 
         return abort;
     }, [params.query, params.page, params.perPage]);
 
-    return status;
+    return response;
 }

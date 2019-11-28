@@ -36,7 +36,7 @@ const Action = styled(Button)`
     }
 `;
 
-interface PhotoCardTemplateProps {
+export interface PhotoCardViewProps {
     image: string | ReactNode;
     title: string | ReactNode;
     owner: string | ReactNode;
@@ -44,7 +44,7 @@ interface PhotoCardTemplateProps {
     actions?: ReactNode;
 }
 
-const PhotoCardTemplate: React.FC<PhotoCardTemplateProps> = ({ image, title, owner, date, actions }) => (
+export const PhotoCardView: React.FC<PhotoCardViewProps> = ({ image, title, owner, date, actions }) => (
     <Card image={image} actions={actions}>
         <Description>
             <b>Title</b>
@@ -79,9 +79,9 @@ export const PhotoCard: React.FC<Photo> = photo => {
     }, [photo.id]);
 
     return (
-        <PhotoCardTemplate
+        <PhotoCardView
             image={`https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`}
-            title={photo.title.length ? photo.title : '-'}
+            title={photo.title.length > 0 ? photo.title : '-'}
             owner={photoInfo ? photoInfo.owner.username : <TextPlaceholder length={50} />}
             date={
                 photoInfo ? (
@@ -106,7 +106,7 @@ export const PhotoCard: React.FC<Photo> = photo => {
 
 export const PhotoCardPlaceholder: React.FC = () => {
     return (
-        <PhotoCardTemplate
+        <PhotoCardView
             image={<LoaderIcon />}
             title={<TextPlaceholder length={90} />}
             owner={<TextPlaceholder length={50} />}

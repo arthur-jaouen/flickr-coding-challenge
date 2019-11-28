@@ -1,6 +1,5 @@
-import { Photo } from 'flickr-sdk';
 import range from 'lodash/range';
-import React, { useState } from 'react';
+import React from 'react';
 import LazyLoad from 'react-lazyload';
 import styled from 'styled-components';
 
@@ -26,13 +25,11 @@ export interface PhotoSearchResultsProps {
 }
 
 export const PhotoSearchResults: React.FC<PhotoSearchResultsProps> = ({ query, page, perPage }) => {
-    const [photos, setPhotos] = useState<Photo[]>([]);
+    const { results, state, error } = useSearchRequest(searchPhotos, { query, page, perPage });
 
-    const status = useSearchRequest(searchPhotos, { query, page, perPage }, setPhotos);
-
-    return status.requestState === REQUEST_STATE.Error ? (
-        <Error>Error : {status.error}</Error>
-    ) : status.requestState === REQUEST_STATE.Fetching ? (
+    return state === REQUEST_STATE.Error ? (
+        <Error>Error : {error}</Error>
+    ) : state === REQUEST_STATE.Fetching ? (
         <StyledPhotoSearchResults>
             {range(0, perPage).map(i => (
                 <PhotoCardContainer key={i}>
@@ -42,8 +39,8 @@ export const PhotoSearchResults: React.FC<PhotoSearchResultsProps> = ({ query, p
         </StyledPhotoSearchResults>
     ) : (
         <StyledPhotoSearchResults>
-            {photos.length > 0 ? (
-                photos.map(photo => (
+            {results.length > 0 ? (
+                results.map(photo => (
                     <LazyLoad key={photo.id} height={553} once={true} offset={600}>
                         <PhotoCardContainer>
                             <PhotoCard {...photo} />
