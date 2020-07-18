@@ -17,7 +17,7 @@
         "@types/styled-components": "^4.4.0",
         "@types/superagent": "^4.1.4",
         "flickr-sdk": "^3.9.0",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.19",
         "moment": "^2.24.0",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
